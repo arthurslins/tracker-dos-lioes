@@ -18,7 +18,7 @@ def tracker():
     st.markdown("<h1 style='text-align: center; '>Tracker players </h1>", unsafe_allow_html=True)
     tz = pytz.timezone("Brazil/East")
     time_now=datetime.datetime.now(tz).time()
-    pesquisa = st.sidebar.text_input("Input your nick for search")
+    pesquisa = st.sidebar.text_input("Coloque seu nick para pesquisa")
     # st.write(current_time)
 #  image = Image.open('assets/Ilustracao_Sem_Titulo.png')
 #     col1, col2, col3 = st.columns([3,5.5,1])
@@ -79,9 +79,9 @@ def tracker():
         # st.write(dia_ant)
         parcial["Nick"]=dfa["Nick"]
         parcial["League Points"]=dfa["League Points_x"]
-        parcial["Total Games"]=dfa["Games_x"]
+        parcial["Total Games"]=dfa["Games"]
         parcial["Daily League Points"]=dfa["League Points_x"]-dfa["League Points_y"]
-        parcial["Daily Games"]=dfa["Games_x"]-dfa["Games_y"]
+        parcial["Daily Games"]=dfa["Games"]-dfa["Total Games"]
         parcial=parcial.sort_values("Daily League Points",ascending=False).reset_index(drop=True)
         parcial.sort_values(['Daily League Points', 'League Points'], ascending=[False, False], inplace=True)
         lolchess=[]
@@ -120,8 +120,17 @@ def tracker():
             f.write(f'count={count}')   
         try:
             parcial,dfo = day_ladder(server)
-            st.write(parcial[parcial["Nick"]==pesquisa])
-            st.write(parcial)
+            
+            st.write(parcial[parcial["Nick"]==pesquisa].rename(columns={'Nick':'Nick',
+                                            'League Points':'Pontos de Liga',
+                                            'Total Games': 'Total de Jogos',
+                                            'Daily League Points':'Total de Pontos de Liga',
+                                            'Daily Games': 'Jogos Diários'}))
+            st.write(parcial.rename(columns={'Nick':'Nick',
+                                            'League Points':'Pontos de Liga',
+                                            'Total Games': 'Total de Jogos',
+                                            'Daily League Points':'Total de Pontos de Liga',
+                                            'Daily Games': 'Jogos Diários'}))
         except:
             st.error(f'A Api para o servidor {server} da riot está com problemas')
        
@@ -134,7 +143,7 @@ def tracker():
     st.sidebar.write(f"O programa foi usado {count} vezes no dia de hoje")              
     st.sidebar.write(f"O programa foi atualizado {current_time} vezes no dia de ontem") 
     
-    senha= st.sidebar.text_input("Enter Admin password to update day")
+    senha= st.sidebar.text_input("Admin")
    
     if senha == "12345":    
         if st.button("Atualizar o dia"):
@@ -152,6 +161,8 @@ def tracker():
                 try:
                     day_ladder(servers)
                     reset_day(servers)
+                    st.success('Pontos diários foram resetados.')
+                    st.balloons()
                 except:
                     pass
       

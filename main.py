@@ -1,6 +1,6 @@
 # st.set_page_config(layout="wide")
 
-from st_app_sections import tracker,apresentacao,snapshot
+from st_app_sections import tracker,apresentacao
 import pandas as pd
 from PIL import Image
 import streamlit as st
@@ -17,23 +17,19 @@ import streamlit as st
 
 
 st.sidebar.markdown("<h1 style='text-align: center; '> Escolinha do TFT </h1>", unsafe_allow_html=True)
-# image = Image.open('assets/baixados.jpg')
-
-
-# st.sidebar.image(image)
+st.sidebar.image("assets/logo2_2.png", use_column_width=True)
 section = st.sidebar.selectbox(
     "Ir para:",
     (
-    'Apresentação da escolinha',
-    'Tracker',
-    "Snapshot",
-       )
+    'Apresentação do Tracker',
+    'Tracker'   
+     )
     )
 
 
-if section == 'Apresentação da escolinha':
+if section == 'Apresentação do Tracker':
     apresentacao()
 elif section == 'Tracker':
     tracker()
-elif section == "Grupos da Rodada atual":
-    snapshot()
+# elif section == "Grupos da Rodada atual":
+#     snapshot()
