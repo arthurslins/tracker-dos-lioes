@@ -122,14 +122,14 @@ def tracker():
         parcial,dfo = day_ladder(server)
         
         st.dataframe(parcial[parcial["Nick"]==pesquisa].rename(columns={'Nick':'Nick',
-                                        'League Points':'Pontos de Liga',
+                                        'League Points':'Pdl',
                                         'Total Games': 'Total de Jogos',
-                                        'Daily League Points':'Total de Pontos de Liga',
+                                        'Daily League Points':'Pdl diário',
                                         'Daily Games': 'Jogos Diários'}))
         st.dataframe(parcial.rename(columns={'Nick':'Nick',
-                                        'League Points':'Pontos de Liga',
+                                        'League Points':'Pdl',
                                         'Total Games': 'Total de Jogos',
-                                        'Daily League Points':'Total de Pontos de Liga',
+                                        'Daily League Points':'Pdl diário',
                                         'Daily Games': 'Jogos Diários'}))
         # except:
         #     st.error(f'A Api para o servidor {server} da riot está com problemas')
