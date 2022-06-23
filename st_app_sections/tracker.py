@@ -121,12 +121,12 @@ def tracker():
         # try:
         parcial,dfo = day_ladder(server)
         
-        st.write(parcial[parcial["Nick"]==pesquisa].rename(columns={'Nick':'Nick',
+        st.dataframe(parcial[parcial["Nick"]==pesquisa].rename(columns={'Nick':'Nick',
                                         'League Points':'Pontos de Liga',
                                         'Total Games': 'Total de Jogos',
                                         'Daily League Points':'Total de Pontos de Liga',
                                         'Daily Games': 'Jogos Diários'}))
-        st.write(parcial.rename(columns={'Nick':'Nick',
+        st.dataframe(parcial.rename(columns={'Nick':'Nick',
                                         'League Points':'Pontos de Liga',
                                         'Total Games': 'Total de Jogos',
                                         'Daily League Points':'Total de Pontos de Liga',
