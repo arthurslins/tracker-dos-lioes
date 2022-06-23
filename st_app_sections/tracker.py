@@ -32,7 +32,7 @@ def tracker():
 #         st.write("")
 
 
-    lista_server=["BR1","EUW1","JP1","KR1","NA1",'OC1']
+    lista_server=["BR1","EUW1","JP1","KR","NA1",'OC1']
 
     server = st.selectbox('Escolha um server?',lista_server)
     result=''.join([i for i in server if not i.isdigit()])
@@ -64,7 +64,7 @@ def tracker():
         df["Daily Games"]=0
         df["Games"] = games
         df=df.sort_values("League Points",ascending=False).reset_index(drop=True)
-        # df.to_csv(data/f'dia_ant{server}.csv',index_label=False) 
+        # df.to_csv(f'data/dia_ant{server}.csv',index_label=False) 
         # time.sleep(2) 
         return df
 
@@ -76,7 +76,7 @@ def tracker():
         
         dfa=df.merge(dia_ant,how="left",on="Nick")
         parcial=pd.DataFrame()
-        # st.write(dia_ant)
+        # st.write(dfa)
         parcial["Nick"]=dfa["Nick"]
         parcial["League Points"]=dfa["League Points_x"]
         parcial["Total Games"]=dfa["Games"]
@@ -88,9 +88,9 @@ def tracker():
         moba=[]
         for nick in parcial.Nick:
                 lolchess.append(f"https://lolchess.gg/profile/{result}/{nick}")
-                moba.append(f"https://app.mobalytics.gg/pt_br/tft/profile/{result}/{nick}/overview")
+                # moba.append(f"https://app.mobalytics.gg/pt_br/tft/profile/{result}/{nick}/overview")
         parcial["lolchess"]=lolchess
-        parcial["mobalytics"]=moba
+        # parcial["mobalytics"]=moba
         parcial.sort_values(['Daily League Points','League Points'],ascending=[True,True])
         parcial=parcial.fillna(0)
         parcial.iloc[:,1:-2] = parcial.iloc[:,1:-2].astype(int)
@@ -118,21 +118,21 @@ def tracker():
         count=count+1
         with open(f'data/count.txt',"w") as f:
             f.write(f'count={count}')   
-        try:
-            parcial,dfo = day_ladder(server)
-            
-            st.write(parcial[parcial["Nick"]==pesquisa].rename(columns={'Nick':'Nick',
-                                            'League Points':'Pontos de Liga',
-                                            'Total Games': 'Total de Jogos',
-                                            'Daily League Points':'Total de Pontos de Liga',
-                                            'Daily Games': 'Jogos Diários'}))
-            st.write(parcial.rename(columns={'Nick':'Nick',
-                                            'League Points':'Pontos de Liga',
-                                            'Total Games': 'Total de Jogos',
-                                            'Daily League Points':'Total de Pontos de Liga',
-                                            'Daily Games': 'Jogos Diários'}))
-        except:
-            st.error(f'A Api para o servidor {server} da riot está com problemas')
+        # try:
+        parcial,dfo = day_ladder(server)
+        
+        st.write(parcial[parcial["Nick"]==pesquisa].rename(columns={'Nick':'Nick',
+                                        'League Points':'Pontos de Liga',
+                                        'Total Games': 'Total de Jogos',
+                                        'Daily League Points':'Total de Pontos de Liga',
+                                        'Daily Games': 'Jogos Diários'}))
+        st.write(parcial.rename(columns={'Nick':'Nick',
+                                        'League Points':'Pontos de Liga',
+                                        'Total Games': 'Total de Jogos',
+                                        'Daily League Points':'Total de Pontos de Liga',
+                                        'Daily Games': 'Jogos Diários'}))
+        # except:
+        #     st.error(f'A Api para o servidor {server} da riot está com problemas')
        
     with open('data/count.txt',"r") as f:
         contents = f.read()
@@ -141,7 +141,7 @@ def tracker():
         current_time = f.read()
         current_time=current_time.split("=")[-1]
     st.sidebar.write(f"O programa foi usado {count} vezes no dia de hoje")              
-    st.sidebar.write(f"O programa foi atualizado {current_time} vezes no dia de ontem") 
+    st.sidebar.write(f"O programa foi atualizado em {current_time} dia de ontem") 
     
     senha= st.sidebar.text_input("Admin")
    
