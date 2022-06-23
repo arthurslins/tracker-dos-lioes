@@ -32,7 +32,7 @@ def tracker():
 #         st.write("")
 
 
-    lista_server=["BR1","EUW1","JP1","KR","NA1",'OC1']
+    lista_server=["BR1","EUW1","JP1","KR1","NA1",'OC1']
 
     server = st.selectbox('Escolha um server?',lista_server)
     result=''.join([i for i in server if not i.isdigit()])
