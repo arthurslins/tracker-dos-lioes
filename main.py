@@ -17,7 +17,7 @@ import streamlit as st
 
 
 st.sidebar.markdown("<h1 style='text-align: center; '> Escolinha do TFT </h1>", unsafe_allow_html=True)
-st.sidebar.image("assets/logo2_2.png", use_column_width=True)
+st.sidebar.image("assets/Ilustracao_Sem_Titulo.png", use_column_width=True)
 section = st.sidebar.selectbox(
     "Ir para:",
     (
